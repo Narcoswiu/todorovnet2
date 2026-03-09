@@ -4,3 +4,5 @@
 *.user
 .env
 appsettings.Development.json
+.DS_Store
+**/.DS_Store
