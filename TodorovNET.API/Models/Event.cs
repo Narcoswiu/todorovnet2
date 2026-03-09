@@ -15,6 +15,7 @@ public class Event
     public bool AllowForeign { get; set; } = true;
     public bool IsPublic { get; set; } = true;
     public int? MaxRiders { get; set; }
+    public string? ImageUrl { get; set; }
     public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 
     public ICollection<Rider> Riders { get; set; } = new List<Rider>();

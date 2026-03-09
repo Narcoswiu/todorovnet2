@@ -15,6 +15,7 @@ public class AppDbContext : DbContext
     public DbSet<Contestation> Contestations => Set<Contestation>();
     public DbSet<EventDay> EventDays => Set<EventDay>();
     public DbSet<EventSegment> EventSegments => Set<EventSegment>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

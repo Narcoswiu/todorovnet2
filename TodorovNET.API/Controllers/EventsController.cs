@@ -73,6 +73,33 @@ public class EventsController : ControllerBase
         return Ok(ev);
     }
 
+    // PUT api/events/1
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] Event updated)
+    {
+        var ev = await _db.Events.FindAsync(id);
+        if (ev == null) return NotFound();
+        ev.Name = updated.Name;
+        ev.Location = updated.Location;
+        ev.DateFrom = updated.DateFrom;
+        ev.DateTo = updated.DateTo;
+        ev.Type = updated.Type;
+        ev.Status = updated.Status;
+        ev.ImageUrl = updated.ImageUrl;
+        await _db.SaveChangesAsync();
+        return Ok(ev);
+    }
+
+    [HttpPatch("{id}/image")]
+    public async Task<IActionResult> UpdateImage(int id, [FromBody] string? imageUrl)
+    {
+        var ev = await _db.Events.FindAsync(id);
+        if (ev == null) return NotFound();
+        ev.ImageUrl = imageUrl;
+        await _db.SaveChangesAsync();
+        return Ok(ev);
+    }
+
     // DELETE api/events/1
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)

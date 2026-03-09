@@ -110,7 +110,7 @@ public class ResultsController : ControllerBase
                 await _db.SaveChangesAsync();
                 await UpdateBestLap(eventId, rider.Id);
                 await PushStandings(eventId);
-                return Ok(existing);
+                return Ok(new { existing.Id, existing.RiderId, existing.Time, existing.Status, existing.Type, existing.RecordedAt });
             }
         }
 
@@ -126,7 +126,7 @@ public class ResultsController : ControllerBase
                 existing.RecordedAt = DateTimeOffset.UtcNow;
                 await _db.SaveChangesAsync();
                 await PushStandings(eventId);
-                return Ok(existing);
+                return Ok(new { existing.Id, existing.RiderId, existing.Time, existing.Status, existing.Type, existing.RecordedAt });
             }
         }
 
@@ -148,7 +148,7 @@ public class ResultsController : ControllerBase
             await UpdateBestLap(eventId, rider.Id);
 
         await PushStandings(eventId);
-        return Ok(result);
+        return Ok(new { result.Id, result.RiderId, result.Time, result.Status, result.Type, result.RecordedAt });
     }
 
     [HttpPut("rider/{raceNumber}/status")]
@@ -168,7 +168,7 @@ public class ResultsController : ControllerBase
         if (result.Id == 0) _db.Results.Add(result);
         await _db.SaveChangesAsync();
         await PushStandings(eventId);
-        return Ok(result);
+        return Ok(new { result.Id, result.RiderId, result.Time, result.Status, result.Type, result.RecordedAt });
     }
 
     private async Task UpdateBestLap(int eventId, int riderId)

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TodorovNET.API.Data;
@@ -11,9 +12,11 @@ using TodorovNET.API.Data;
 namespace TodorovNET.API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260306203920_AddSegmentDescription")]
+    partial class AddSegmentDescription
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -375,45 +378,6 @@ namespace TodorovNET.API.Migrations
                     b.ToTable("Riders");
                 });
 
-            modelBuilder.Entity("TodorovNET.API.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("EventId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("PasswordHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("Users");
-                });
-
             modelBuilder.Entity("TodorovNET.API.Models.Contestation", b =>
                 {
                     b.HasOne("TodorovNET.API.Models.Event", "Event")
@@ -510,15 +474,6 @@ namespace TodorovNET.API.Migrations
                         .IsRequired();
 
                     b.Navigation("Class");
-
-                    b.Navigation("Event");
-                });
-
-            modelBuilder.Entity("TodorovNET.API.Models.User", b =>
-                {
-                    b.HasOne("TodorovNET.API.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId");
 
                     b.Navigation("Event");
                 });
